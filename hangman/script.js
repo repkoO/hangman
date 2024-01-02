@@ -1,5 +1,16 @@
 import { words } from "./modules/words.js";
 import { keyboard } from "./modules/keyboard.js";
 
-console.log(words);
-console.log(keyboard);
+const mainWrapper = document.createElement('div');
+
+document.body.append(mainWrapper);
+mainWrapper.classList.add('container');
+
+const gameContainer = document.createElement('div');
+const keyContainer = document.createElement('div');
+gameContainer.classList.add('game__container');
+keyContainer.classList.add('control__container');
+
+mainWrapper.append(gameContainer, keyContainer);
+
+
