@@ -18,3 +18,14 @@ body {
   background-image: url('./assets/list_v_kletku.jpg');
   background-size: cover;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  margin: 100px;
+}
+
+.game__container {
+  display: flex;
+  flex-direction: column;
+}

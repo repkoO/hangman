@@ -15,6 +15,7 @@ mainWrapper.append(gameContainer, keyContainer);
 
 const imgContainer = document.createElement('div');
 const gameTitle = document.createElement('h1');
-gameTitle.textContent = 'Hangman Game'
+imgContainer.classList.add('img__container');
+gameTitle.textContent = 'Hangman Game';
 
 gameContainer.append(imgContainer, gameTitle)
