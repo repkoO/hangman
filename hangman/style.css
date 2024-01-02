@@ -14,4 +14,7 @@ h6 {
    font-weight: 400
 }
 
-
+body {
+  background-image: url('./assets/list_v_kletku.jpg');
+  background-size: cover;
+}
