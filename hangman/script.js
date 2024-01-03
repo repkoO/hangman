@@ -19,3 +19,12 @@ imgContainer.classList.add('img__container');
 gameTitle.textContent = 'Hangman Game';
 
 gameContainer.append(imgContainer, gameTitle)
+
+const imgFile = document.createElement('img');
+imgFile.src = './assets/gallows.png'
+imgFile.classList.add('img__gallow')
+imgContainer.append(imgFile);
+
+
+//JS game functions
+
