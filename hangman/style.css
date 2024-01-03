@@ -22,12 +22,16 @@ h6 {
 body {
   background-image: url('./assets/list_v_kletku.jpg');
   background-size: cover;
+  height: 100vh;
 }
 
 .container {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
   margin: 100px 100px 0 100px;
+  gap: 100px;
 }
 
 .game__container {
@@ -35,7 +39,6 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 100px;
-  margin-left: 100px;
 }
 
 .img__gallow {
@@ -46,4 +49,43 @@ body {
   font-family: 'Hangman';
   font-size: 40px;
   font-weight: 600;
+}
+
+.control__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 100px;
+}
+
+.game__wrapper {
+  display: flex;
+  gap: 40px;
+  font-size: 50px;
+}
+
+.keyaboard__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: 'Hangman';
+  font-size: 30px;
+}
+
+.game__button {
+  padding: 30px;
+  cursor: pointer;
+  transition: ease 0.5s;
+  border-radius: 100px;
+}
+
+.game__button:hover {
+  border: 1px solid;
+  transform: scale(1.4);
+}
+
+.game__button:active {
+  pointer-events: none;
+  color: grey;
+  transform: scale(1.0);
 }
