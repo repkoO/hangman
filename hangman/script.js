@@ -58,3 +58,11 @@ const createKeyboard = (keyboard) => {
 }
 
 createKeyboard(keyboard);
+
+const keyBoardArray = document.querySelectorAll('.game__button');
+
+keyBoardArray.forEach((el) => {
+  el.addEventListener('click', () => {
+    el.setAttribute('data-active', '');
+  })
+})
