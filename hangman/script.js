@@ -31,21 +31,32 @@ const gameField = document.createElement('div');
 const keyboardWrapper = document.createElement('div');
 gameField.classList.add('game__wrapper')
 keyboardWrapper.classList.add('keyaboard__wrapper')
-keyContainer.append(gameField, keyboardWrapper);
+
+//поле с вопросом
+
+const questionField = document.createElement('div');
+questionField.classList.add('questions__wrapper');
+keyContainer.append(gameField, questionField , keyboardWrapper);
+
 
 //JS game functions
 
 
-const randomWord = words[Math.floor(words.length * Math.random())].answer;
+const randomIndex = Math.floor(Math.random() * words.length)
+const randomWord = words[randomIndex];
+
 
 
 const getValue = () => {
-  for (let i = 0; i < randomWord.length; i++) {
+  for (let i = 0; i < randomWord.answer.length; i++) {
     const createValue  = document.createElement('div');
     gameField.append(createValue);
     createValue.textContent = '_';
     createValue.classList.add('word__letter')
   }
+  const createQuestion = document.createElement('p');
+  questionField.append(createQuestion);
+  createQuestion.textContent = randomWord.question;
 }
 getValue();
 
