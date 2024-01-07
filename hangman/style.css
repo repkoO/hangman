@@ -74,7 +74,7 @@ body {
 }
 
 .game__button {
-  padding: 30px;
+  padding: 20px;
   cursor: pointer;
   transition: ease 0.5s;
   border-radius: 100px;
@@ -82,7 +82,7 @@ body {
 
 .game__button:hover {
   border: 1px solid;
-  transform: scale(1.4);
+  transform: scale(1.2);
 }
 
 .game__button[data-active] {

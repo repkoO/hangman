@@ -36,7 +36,8 @@ keyContainer.append(gameField, keyboardWrapper);
 //JS game functions
 
 
-const randomWord = words[Math.floor(words.length * Math.random())];
+const randomWord = words[Math.floor(words.length * Math.random())].answer;
+
 
 const getValue = () => {
   for (let i = 0; i < randomWord.length; i++) {
