@@ -27,4 +27,16 @@ export const words = [
         "question": "What is the largest dwarf planet in our solar system?",
         "answer": "Pluto"
     },
+    {
+        "question": "Which constellation contains the brightest star?",
+        "answer": "Orion"
+    },
+    {
+        "question": "What is the smallest star that humans can observe with the naked eye?",
+        "answer": "Sirius"
+    },
+    {
+        "question": "How many planets does a star typically have?",
+        "answer": "Two"
+    }
  ]

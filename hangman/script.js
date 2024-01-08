@@ -1,6 +1,11 @@
 import { words } from "./modules/words.js";
 import { keyboard } from "./modules/keyboard.js";
 
+const randomIndex = Math.floor(Math.random() * words.length)
+const randomWord = words[randomIndex];
+let livesRemaining = 6;
+const guessWord = [];
+
 const mainWrapper = document.createElement('div');
 
 document.body.append(mainWrapper);
@@ -38,14 +43,14 @@ const questionField = document.createElement('div');
 questionField.classList.add('questions__wrapper');
 keyContainer.append(gameField, questionField , keyboardWrapper);
 
+// поле с остатком попыток
+
+const remainingTimes = document.createElement('div');
+remainingTimes.classList.add('remaining__wrapper');
+remainingTimes.textContent = `${livesRemaining}/6 remaining tries`;
+keyContainer.append(gameField, questionField, remainingTimes, keyboardWrapper);
 
 //JS game functions
-
-
-const randomIndex = Math.floor(Math.random() * words.length)
-const randomWord = words[randomIndex];
-
-
 
 const getValue = () => {
   for (let i = 0; i < randomWord.answer.length; i++) {
@@ -74,7 +79,16 @@ createKeyboard(keyboard);
 const keyBoardArray = document.querySelectorAll('.game__button');
 
 keyBoardArray.forEach((el) => {
-  el.addEventListener('click', () => {
+  el.addEventListener('click', (e) => {
+    const currentWordValue = e.target.innerText;
+    if (randomWord.answer.toLowerCase().includes(currentWordValue)) {
+      console.log(123);
+    } else {
+      remainingTimes.textContent = `${livesRemaining--}/6 remaining tries`;
+    }
+    guessWord.push(currentWordValue)
+    console.log(guessWord, currentWordValue, randomWord.answer.toLowerCase());
     el.setAttribute('data-active', '');
   })
 })
+
