@@ -80,57 +80,6 @@ const createKeyboard = (keyboard) => {
 
 createKeyboard(keyboard);
 
-const canvasGraphic = document.createElement('canvas');
-mainWrapper.append(canvasGraphic);
-canvasGraphic.setAttribute('width', '300px');
-canvasGraphic.setAttribute('height', '300px');
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
-
-function drawHangmanPart(lives) {
-  switch (lives) {
-    case 6:
-      // Draw the head
-      ctx.beginPath();
-      ctx.arc(60, 60, 20, 0, Math.PI * 2);
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = 'red';
-      ctx.stroke();
-      ctx.closePath();
-      break;
-    case 5:
-      // Draw the body
-      ctx.beginPath();
-      ctx.moveTo(60, 250);
-      ctx.lineTo(60, 80);
-      ctx.stroke();
-      break;
-    case 4:
-      ctx.beginPath();
-      ctx.moveTo(60, 250);
-      ctx.lineTo(60, 80);
-      ctx.stroke();
-      break;
-    case 3:
-      ctx.beginPath();
-      ctx.moveTo(60, 250);
-      ctx.lineTo(60, 80);
-      ctx.stroke();
-      break;
-    case 2:
-      ctx.beginPath();
-      ctx.moveTo(60, 250);
-      ctx.lineTo(60, 80);
-      ctx.stroke();
-      break;
-    case 1:
-      ctx.beginPath();
-      ctx.moveTo(60, 250);
-      ctx.lineTo(60, 80);
-      ctx.stroke();
-       break;
-}
-}
 
 //слушатель при клике на кнопку
 
@@ -160,3 +109,54 @@ keyBoardArray.forEach((el) => {
   el.setAttribute('data-active', '');
   })
 })
+
+const canvasGraphic = document.createElement('canvas');
+mainWrapper.append(canvasGraphic);
+canvasGraphic.setAttribute('width', '150px');
+canvasGraphic.setAttribute('height', '300px');
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+
+function drawHangmanPart(lives) {
+  switch (lives) {
+    case 6:
+      // Draw the head
+      ctx.beginPath();
+      ctx.arc(60, 60, 20, 0, Math.PI * 2);
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = 'red';
+      ctx.stroke();
+      ctx.closePath();
+      break;
+    case 5:
+      ctx.beginPath();
+      ctx.moveTo(60, 220);
+      ctx.lineTo(60, 80);
+      ctx.stroke();
+      break;
+    case 4:
+      ctx.beginPath();
+      ctx.moveTo(60, 120);
+      ctx.lineTo(10, 100);
+      ctx.stroke();
+      break;
+    case 3:
+      ctx.beginPath();
+      ctx.moveTo(62, 120);
+      ctx.lineTo(110, 100);
+      ctx.stroke();
+      break;
+    case 2:
+      ctx.beginPath();
+      ctx.moveTo(60, 220);
+      ctx.lineTo(190, 370);
+      ctx.stroke();
+      break;
+    case 1:
+      ctx.beginPath();
+      ctx.moveTo(60, 220);
+      ctx.lineTo(10, 300);
+      ctx.stroke();
+       break;
+}
+}
