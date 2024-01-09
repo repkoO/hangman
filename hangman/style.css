@@ -117,3 +117,30 @@ canvas {
   top: 70px;
   left: 215px;
 }
+
+.reset__button {
+  border: 1px solid black;
+  font-family: 'Hangman';
+  font-size: 24px;
+  font-weight: 900;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: 0.8s ease;
+}
+
+.reset__button:hover {
+  border: 1px solid red;
+  color: red;
+  transform: scale(1.2);
+}
+
+.loose__text,
+.win__text {
+  position: absolute;
+  top: -50px;
+  left: 700px;
+  font-family: 'Hangman';
+  font-size: 24px;
+  font-weight: 900px;
+}

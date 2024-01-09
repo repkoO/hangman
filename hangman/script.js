@@ -40,15 +40,20 @@ keyboardWrapper.classList.add('keyaboard__wrapper')
 
 const questionField = document.createElement('div');
 questionField.classList.add('questions__wrapper');
-keyContainer.append(gameField, questionField , keyboardWrapper);
 
 // поле с остатком попыток
 
 const remainingTimes = document.createElement('div');
 remainingTimes.classList.add('remaining__wrapper');
 remainingTimes.textContent = `${livesRemaining}/6 remaining tries`;
-keyContainer.append(gameField, questionField, remainingTimes, keyboardWrapper);
 
+//поле с кнопкой обновить
+
+const resetButton = document.createElement('div');
+resetButton.classList.add('reset__button');
+resetButton.textContent = 'Reset Game';
+
+keyContainer.append(gameField, questionField, remainingTimes, keyboardWrapper, resetButton);
 //JS game functions
 
 //создание поля ответа и вопроса
@@ -84,6 +89,8 @@ createKeyboard(keyboard);
 //слушатель при клике на кнопку
 
 const keyBoardArray = document.querySelectorAll('.game__button');
+const youWin = document.createElement('div');
+const youLoose = document.createElement('div');
 
 keyBoardArray.forEach((el) => {
   el.addEventListener('click', (e) => {
@@ -97,13 +104,23 @@ keyBoardArray.forEach((el) => {
     })
   const currentGuessedWord = Array.from(hiddenValue).map(el => el.textContent).join('');
   if (currentGuessedWord === randomWord.answer.toLowerCase()) {
-    alert('Congratulations! You win!');
+    youWin.classList.add('win__text');
+    keyContainer.append(youWin);
+    youWin.textContent = 'You Win! \n Reset The Game'
+    keyBoardArray.forEach((button) => {
+      button.style.pointerEvents = 'none';
+    })
     }
   } else {
     drawHangmanPart(livesRemaining);
     remainingTimes.innerHTML = `${--livesRemaining}/6 remaining tries`;
     if (livesRemaining === 0) {
-      alert('You lose');
+      youLoose.classList.add('loose__text');
+      youLoose.textContent = 'You Loose! :( \n Reset The Game'
+      keyContainer.append(youLoose);
+      keyBoardArray.forEach((button) => {
+        button.style.pointerEvents = 'none';
+      })
     }
   }
   el.setAttribute('data-active', '');
@@ -158,5 +175,31 @@ function drawHangmanPart(lives) {
       ctx.lineTo(10, 300);
       ctx.stroke();
        break;
+  }
 }
-}
+
+//сброс с кнопки
+
+const clearGame = document.querySelector('.reset__button');
+clearGame.addEventListener('click', () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  livesRemaining = 6;
+  remainingTimes.innerHTML = `${livesRemaining}/6 remaining tries`;
+
+  const hiddenValue = document.querySelectorAll('.word__letter');
+  hiddenValue.forEach(el => {
+    el.textContent = '_';
+  });
+
+  keyBoardArray.forEach(el => {
+    el.removeAttribute('data-active');
+  });
+
+  youLoose.textContent = '';
+  youWin.textContent = '';
+
+  keyBoardArray.forEach((button) => {
+    button.style.pointerEvents = '';
+  })
+})
