@@ -4,7 +4,6 @@ import { keyboard } from "./modules/keyboard.js";
 const randomIndex = Math.floor(Math.random() * words.length)
 const randomWord = words[randomIndex];
 let livesRemaining = 6;
-const guessWord = [];
 
 const mainWrapper = document.createElement('div');
 
@@ -52,18 +51,23 @@ keyContainer.append(gameField, questionField, remainingTimes, keyboardWrapper);
 
 //JS game functions
 
+//создание поля ответа и вопроса
+
 const getValue = () => {
   for (let i = 0; i < randomWord.answer.length; i++) {
     const createValue  = document.createElement('div');
     gameField.append(createValue);
     createValue.textContent = '_';
-    createValue.classList.add('word__letter')
+    createValue.classList.add('word__letter');
+    createValue.setAttribute('data-id', i)
   }
   const createQuestion = document.createElement('p');
   questionField.append(createQuestion);
   createQuestion.textContent = randomWord.question;
 }
 getValue();
+
+//создание клавиатуры
 
 const createKeyboard = (keyboard) => {
   for (let i = 0; i < keyboard.length; i++) {
@@ -76,19 +80,83 @@ const createKeyboard = (keyboard) => {
 
 createKeyboard(keyboard);
 
+const canvasGraphic = document.createElement('canvas');
+mainWrapper.append(canvasGraphic);
+canvasGraphic.setAttribute('width', '300px');
+canvasGraphic.setAttribute('height', '300px');
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+
+function drawHangmanPart(lives) {
+  switch (lives) {
+    case 6:
+      // Draw the head
+      ctx.beginPath();
+      ctx.arc(60, 60, 20, 0, Math.PI * 2);
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = 'red';
+      ctx.stroke();
+      ctx.closePath();
+      break;
+    case 5:
+      // Draw the body
+      ctx.beginPath();
+      ctx.moveTo(60, 250);
+      ctx.lineTo(60, 80);
+      ctx.stroke();
+      break;
+    case 4:
+      ctx.beginPath();
+      ctx.moveTo(60, 250);
+      ctx.lineTo(60, 80);
+      ctx.stroke();
+      break;
+    case 3:
+      ctx.beginPath();
+      ctx.moveTo(60, 250);
+      ctx.lineTo(60, 80);
+      ctx.stroke();
+      break;
+    case 2:
+      ctx.beginPath();
+      ctx.moveTo(60, 250);
+      ctx.lineTo(60, 80);
+      ctx.stroke();
+      break;
+    case 1:
+      ctx.beginPath();
+      ctx.moveTo(60, 250);
+      ctx.lineTo(60, 80);
+      ctx.stroke();
+       break;
+}
+}
+
+//слушатель при клике на кнопку
+
 const keyBoardArray = document.querySelectorAll('.game__button');
 
 keyBoardArray.forEach((el) => {
   el.addEventListener('click', (e) => {
-    const currentWordValue = e.target.innerText;
-    if (randomWord.answer.toLowerCase().includes(currentWordValue)) {
-      console.log(123);
-    } else {
-      remainingTimes.textContent = `${livesRemaining--}/6 remaining tries`;
+  const currentWordValue = e.target.innerText; //значение элемента при клике
+  const hiddenValue = document.querySelectorAll('.word__letter'); //доступ к дивам со скрытыми буквами
+  if (randomWord.answer.toLowerCase().includes(currentWordValue)) {
+    hiddenValue.forEach((el, index) => {
+      if (randomWord.answer.toLowerCase().charAt(index) === currentWordValue) {
+        el.textContent = currentWordValue;
+      }
+    })
+  const currentGuessedWord = Array.from(hiddenValue).map(el => el.textContent).join('');
+  if (currentGuessedWord === randomWord.answer.toLowerCase()) {
+    alert('Congratulations! You win!');
     }
-    guessWord.push(currentWordValue)
-    console.log(guessWord, currentWordValue, randomWord.answer.toLowerCase());
-    el.setAttribute('data-active', '');
+  } else {
+    drawHangmanPart(livesRemaining);
+    remainingTimes.innerHTML = `${--livesRemaining}/6 remaining tries`;
+    if (livesRemaining === 0) {
+      alert('You lose');
+    }
+  }
+  el.setAttribute('data-active', '');
   })
 })
-
