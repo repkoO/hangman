@@ -1,9 +1,10 @@
 import { words } from "./modules/words.js";
 import { keyboard } from "./modules/keyboard.js";
 
-const randomIndex = Math.floor(Math.random() * words.length)
-const randomWord = words[randomIndex];
+let randomIndex = Math.floor(Math.random() * words.length)
+let randomWord = words[randomIndex];
 let livesRemaining = 6;
+let isGameOver = false;
 
 const mainWrapper = document.createElement('div');
 
@@ -17,17 +18,73 @@ keyContainer.classList.add('control__container');
 
 mainWrapper.append(gameContainer, keyContainer);
 
-const imgContainer = document.createElement('div');
 const gameTitle = document.createElement('h1');
-imgContainer.classList.add('img__container');
 gameTitle.textContent = 'Hangman Game';
 
-gameContainer.append(imgContainer, gameTitle)
+const canvasGraphic = document.createElement('canvas');
+gameContainer.append(canvasGraphic, gameTitle)
+canvasGraphic.setAttribute('width', '400px');
+canvasGraphic.setAttribute('height', '400px');
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
 
-const imgFile = document.createElement('img');
-imgFile.src = './assets/gallows.png'
-imgFile.classList.add('img__gallow')
-imgContainer.append(imgFile);
+function drawGallows() {
+  ctx.beginPath();
+  ctx.lineWidth = 10;
+  ctx.moveTo(100, 350);
+  ctx.lineTo(300, 350);
+  ctx.moveTo(150, 350);
+  ctx.lineTo(150, 100);
+  ctx.lineTo(250, 100);
+  ctx.lineTo(250, 150);
+  ctx.strokeStyle = 'black'
+  ctx.stroke();
+}
+drawGallows();
+
+function drawHangmanPart(lives) {
+  switch (lives) {
+    case 6:
+      // Draw the head
+      ctx.beginPath();
+      ctx.arc(250, 168, 20, 0, Math.PI * 2);
+      ctx.lineWidth = 6;
+      ctx.strokeStyle = 'red';
+      ctx.stroke();
+      ctx.closePath();
+      break;
+    case 5:
+      ctx.beginPath();
+      ctx.moveTo(250, 190);
+      ctx.lineTo(250, 300);
+      ctx.stroke();
+      break;
+    case 4:
+      ctx.beginPath();
+      ctx.moveTo(250, 210);
+      ctx.lineTo(200, 230);
+      ctx.stroke();
+      break;
+    case 3:
+      ctx.beginPath();
+      ctx.moveTo(250, 210);
+      ctx.lineTo(300, 230);
+      ctx.stroke();
+      break;
+    case 2:
+      ctx.beginPath();
+      ctx.moveTo(248, 298);
+      ctx.lineTo(200, 325);
+      ctx.stroke();
+      break;
+    case 1:
+      ctx.beginPath();
+      ctx.moveTo(248, 298);
+      ctx.lineTo(300, 325);
+      ctx.stroke();
+       break;
+  }
+}
 
 
 // поле с буквами
@@ -85,12 +142,23 @@ const createKeyboard = (keyboard) => {
 
 createKeyboard(keyboard);
 
-
-//слушатель при клике на кнопку
-
 const keyBoardArray = document.querySelectorAll('.game__button');
 const youWin = document.createElement('div');
 const youLoose = document.createElement('div');
+//MODAL
+
+
+const fixedOverlay = document.createElement('div');
+fixedOverlay.classList.add('fixed__overlay', 'hidden')
+document.body.append(fixedOverlay);
+
+const modalWrapper = document.createElement('div');
+modalWrapper.classList.add('modal__wrapper');
+
+const modalContainer = document.createElement('div');
+modalContainer.classList.add('modal__container');
+
+//слушатель при клике на кнопку
 
 keyBoardArray.forEach((el) => {
   el.addEventListener('click', (e) => {
@@ -104,9 +172,12 @@ keyBoardArray.forEach((el) => {
     })
   const currentGuessedWord = Array.from(hiddenValue).map(el => el.textContent).join('');
   if (currentGuessedWord === randomWord.answer.toLowerCase()) {
-    youWin.classList.add('win__text');
-    keyContainer.append(youWin);
-    youWin.textContent = 'You Win! \n Reset The Game'
+    fixedOverlay.classList.remove('hidden');
+    fixedOverlay.append(modalWrapper);
+    modalWrapper.append(modalContainer);
+    youWin.textContent = 'You Win!'
+    youWin.classList.add('win__text')
+    modalContainer.append(youWin, resetButton)
     keyBoardArray.forEach((button) => {
       button.style.pointerEvents = 'none';
     })
@@ -115,9 +186,12 @@ keyBoardArray.forEach((el) => {
     drawHangmanPart(livesRemaining);
     remainingTimes.innerHTML = `${--livesRemaining}/6 remaining tries`;
     if (livesRemaining === 0) {
-      youLoose.classList.add('loose__text');
-      youLoose.textContent = 'You Loose! :( \n Reset The Game'
-      keyContainer.append(youLoose);
+      fixedOverlay.classList.remove('hidden');
+      fixedOverlay.append(modalWrapper);
+      modalWrapper.append(modalContainer);
+      youLoose.textContent = 'You Loose!'
+      youLoose.classList.add('loose__text')
+    modalContainer.append(youLoose, resetButton)
       keyBoardArray.forEach((button) => {
         button.style.pointerEvents = 'none';
       })
@@ -127,62 +201,70 @@ keyBoardArray.forEach((el) => {
   })
 })
 
-const canvasGraphic = document.createElement('canvas');
-mainWrapper.append(canvasGraphic);
-canvasGraphic.setAttribute('width', '150px');
-canvasGraphic.setAttribute('height', '300px');
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
+//с клавиатуры
 
-function drawHangmanPart(lives) {
-  switch (lives) {
-    case 6:
-      // Draw the head
-      ctx.beginPath();
-      ctx.arc(60, 60, 20, 0, Math.PI * 2);
-      ctx.lineWidth = 6;
-      ctx.strokeStyle = 'red';
-      ctx.stroke();
-      ctx.closePath();
-      break;
-    case 5:
-      ctx.beginPath();
-      ctx.moveTo(60, 220);
-      ctx.lineTo(60, 80);
-      ctx.stroke();
-      break;
-    case 4:
-      ctx.beginPath();
-      ctx.moveTo(60, 120);
-      ctx.lineTo(10, 100);
-      ctx.stroke();
-      break;
-    case 3:
-      ctx.beginPath();
-      ctx.moveTo(62, 120);
-      ctx.lineTo(110, 100);
-      ctx.stroke();
-      break;
-    case 2:
-      ctx.beginPath();
-      ctx.moveTo(60, 220);
-      ctx.lineTo(190, 370);
-      ctx.stroke();
-      break;
-    case 1:
-      ctx.beginPath();
-      ctx.moveTo(60, 220);
-      ctx.lineTo(10, 300);
-      ctx.stroke();
-       break;
+document.addEventListener('keydown', (e) => {
+  if (isGameOver) return;
+  keyBoardArray.forEach(el => {
+    const hiddenValue = document.querySelectorAll('.word__letter'); //доступ к дивам со скрытыми буквами
+    if (e.key === el.textContent) {
+      const currentWordValue = e.key;
+      console.log(currentWordValue);
+       if (randomWord.answer.toLowerCase().includes(currentWordValue)) {
+    hiddenValue.forEach((el, index) => {
+      if (randomWord.answer.toLowerCase().charAt(index) === currentWordValue) {
+        el.textContent = currentWordValue;
+      }
+    })
+  const currentGuessedWord = Array.from(hiddenValue).map(el => el.textContent).join('');
+  if (currentGuessedWord === randomWord.answer.toLowerCase()) {
+    fixedOverlay.classList.remove('hidden');
+    fixedOverlay.append(modalWrapper);
+    modalWrapper.append(modalContainer);
+    youWin.textContent = 'You Win!'
+    youWin.classList.add('win__text')
+    modalContainer.append(youWin, resetButton)
+    keyBoardArray.forEach((button) => {
+      button.style.pointerEvents = 'none';
+    });
+    isGameOver = true;
+    }
+  } else {
+    drawHangmanPart(livesRemaining);
+    remainingTimes.innerHTML = `${--livesRemaining}/6 remaining tries`;
+    if (livesRemaining === 0) {
+      fixedOverlay.classList.remove('hidden');
+      fixedOverlay.append(modalWrapper);
+      modalWrapper.append(modalContainer);
+      youLoose.textContent = 'You Loose!'
+      youLoose.classList.add('loose__text')
+      modalContainer.append(youLoose, resetButton)
+      keyBoardArray.forEach((button) => {
+        button.style.pointerEvents = 'none';
+      })
+      isGameOver = true;
+    }
   }
+  el.setAttribute('data-active', '');
 }
+  })
+})
 
 //сброс с кнопки
 
 const clearGame = document.querySelector('.reset__button');
 clearGame.addEventListener('click', () => {
+  isGameOver = false;
+  gameField.textContent = '';
+  questionField.textContent = '';
+
+
+  randomIndex = Math.floor(Math.random() * words.length)
+  randomWord = words[randomIndex];
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawGallows();
+
 
   livesRemaining = 6;
   remainingTimes.innerHTML = `${livesRemaining}/6 remaining tries`;
@@ -202,4 +284,19 @@ clearGame.addEventListener('click', () => {
   keyBoardArray.forEach((button) => {
     button.style.pointerEvents = '';
   })
+
+  fixedOverlay.classList.add('hidden');
+
+  keyContainer.append(resetButton);
+
+  for (let i = 0; i < randomWord.answer.length; i++) {
+    const createValue  = document.createElement('div');
+    gameField.append(createValue);
+    createValue.textContent = '_';
+    createValue.classList.add('word__letter');
+    createValue.setAttribute('data-id', i)
+  }
+  const createQuestion = document.createElement('p');
+  questionField.append(createQuestion);
+  createQuestion.textContent = randomWord.question;
 })
