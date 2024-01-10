@@ -23,23 +23,22 @@ body {
   background-image: url('./assets/list_v_kletku.jpg');
   background-size: cover;
   height: 100%;
+  max-width: 1440px;
 }
 
 .container {
   display: flex;
-  position: relative;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin: 100px 100px 0 100px;
-  gap: 5em;
 }
 
 .game__container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 100px;
+  gap: 50px;
 }
 
 .img__gallow {
@@ -57,7 +56,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 2.5em;
+  row-gap: 1.5em;
 }
 
 .game__wrapper {
@@ -82,11 +81,6 @@ body {
   border-radius: 100px;
 }
 
-.game__button:hover {
-  border: 1px solid;
-  transform: scale(1.2);
-}
-
 .game__button[data-active] {
   pointer-events: none;
   color: grey;
@@ -96,7 +90,7 @@ body {
 .questions__wrapper p {
   font-family: 'Hangman';
   font-weight: 700;
-  font-size: 32px;
+  font-size: 26px;
 }
 
 .remaining__wrapper {
@@ -109,13 +103,7 @@ body {
 .word__letter {
   font-family: 'Hangman';
   font-weight: 700;
-  font-size: 64px;
-}
-
-canvas {
-  position: absolute;
-  top: 70px;
-  left: 215px;
+  font-size: 32px;
 }
 
 .reset__button {
@@ -129,18 +117,122 @@ canvas {
   transition: 0.8s ease;
 }
 
-.reset__button:hover {
-  border: 1px solid red;
-  color: red;
-  transform: scale(1.2);
-}
-
 .loose__text,
 .win__text {
-  position: absolute;
-  top: -50px;
-  left: 700px;
   font-family: 'Hangman';
-  font-size: 24px;
-  font-weight: 900px;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+/* MODAL */
+
+.fixed__overlay {
+  position: fixed;
+  overflow: auto;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(64, 63, 61, 0.80);
+  z-index: 10;
+  animation: modalOpen 0.5s;
+}
+
+.modal__wrapper {
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  position: fixed;
+  left: 0; top: 0; right: 0; bottom: 0;
+  align-items: center;
+  margin: 0 auto;
+  overflow: auto; /* Enable scroll if needed */
+  width: 806px;
+  animation: modalOpen 0.2s;
+}
+
+.modal__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 50px;
+  gap: 20px;
+  border-radius: 110px;
+  border: 1px solid black;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes modalOpen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (hover: hover)  {
+  .game__button:hover {
+    border: 1px solid;
+    transform: scale(1.2);
+  }
+
+  .reset__button:hover {
+    border: 1px solid red;
+    color: red;
+    transform: scale(1.2);
+  }
+}
+
+@media screen and (max-width: 1015px) {
+  .container {
+    flex-direction: column;
+    margin: 30px 100px 0 100px;
+  }
+
+  .game__container {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .modal__wrapper {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+
+  .container {
+    margin: 10px 15px 0 15px;
+  }
+
+  .control__container {
+    margin-bottom: 15px;
+  }
+
+  .word__letter {
+    font-size: 24px;
+  }
+
+  .questions__wrapper p {
+    font-size: 16px;
+  }
+
+  .remaining__wrapper {
+    font-size: 16px;
+  }
+
+  .keyaboard__wrapper {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .reset__button {
+    font-size: 16px;
+  }
 }
