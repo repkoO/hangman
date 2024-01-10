@@ -23,7 +23,7 @@ gameTitle.textContent = 'Hangman Game';
 
 const canvasGraphic = document.createElement('canvas');
 gameContainer.append(canvasGraphic, gameTitle)
-canvasGraphic.setAttribute('width', '400px');
+canvasGraphic.setAttribute('width', '360px');
 canvasGraphic.setAttribute('height', '400px');
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
