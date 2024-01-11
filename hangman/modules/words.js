@@ -9,7 +9,7 @@ export const words = [
     },
     {
         "question": "What is the largest galaxy known to exist?",
-        "answer": "Milky Way"
+        "answer": "MilkyWay"
     },
     {
         "question": "What is the largest moon of Saturn?",
@@ -25,7 +25,7 @@ export const words = [
     },
     {
         "question": "What is the largest dwarf planet in our solar system?",
-        "answer": "Pluto"
+        "answer": "Pluton"
     },
     {
         "question": "Which constellation contains the brightest star?",

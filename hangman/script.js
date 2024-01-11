@@ -173,7 +173,6 @@ keyBoardArray.forEach((el) => {
     })
   const currentGuessedWord = Array.from(hiddenValue).map(el => el.textContent).join('');
   const finalAnswer = randomWord.answer.toLowerCase();
-  console.log(finalAnswer, randomWord.answer.toLowerCase());
 
   if (currentGuessedWord === randomWord.answer.toLowerCase()) {
     fixedOverlay.classList.remove('hidden');
@@ -197,7 +196,7 @@ keyBoardArray.forEach((el) => {
       fixedOverlay.append(modalWrapper);
       modalWrapper.append(modalContainer);
       youLoose.textContent = 'You Loose!'
-      youLoose.classList.add('loose__text')
+      youLoose.classList.add('loose__text');
     modalContainer.append(youLoose, resetButton)
       keyBoardArray.forEach((button) => {
         button.style.pointerEvents = 'none';
@@ -224,13 +223,18 @@ document.addEventListener('keydown', (e) => {
       }
     })
   const currentGuessedWord = Array.from(hiddenValue).map(el => el.textContent).join('');
+  const finalAnswer = randomWord.answer.toLowerCase();
+  
   if (currentGuessedWord === randomWord.answer.toLowerCase()) {
     fixedOverlay.classList.remove('hidden');
     fixedOverlay.append(modalWrapper);
     modalWrapper.append(modalContainer);
     youWin.textContent = 'You Win!'
     youWin.classList.add('win__text')
-    modalContainer.append(youWin, resetButton)
+    finalWord.classList.add('final__result');
+    finalWord.textContent = `Correct Answer: ${finalAnswer}`
+    modalContainer.append(youWin, finalWord, resetButton);
+    document.body.style.overflow = 'hidden';
     keyBoardArray.forEach((button) => {
       button.style.pointerEvents = 'none';
     });
