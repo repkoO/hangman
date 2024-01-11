@@ -167,6 +167,13 @@ body {
   display: none;
 }
 
+.final__result {
+  font-family: 'Hangman';
+  font-size: 24px;
+  color: red;
+  font-weight: bold;
+}
+
 @keyframes modalOpen {
   from {
     opacity: 0;

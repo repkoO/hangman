@@ -145,6 +145,7 @@ createKeyboard(keyboard);
 const keyBoardArray = document.querySelectorAll('.game__button');
 const youWin = document.createElement('div');
 const youLoose = document.createElement('div');
+const finalWord = document.createElement('div');
 //MODAL
 
 
@@ -171,13 +172,19 @@ keyBoardArray.forEach((el) => {
       }
     })
   const currentGuessedWord = Array.from(hiddenValue).map(el => el.textContent).join('');
+  const finalAnswer = randomWord.answer.toLowerCase();
+  console.log(finalAnswer, randomWord.answer.toLowerCase());
+
   if (currentGuessedWord === randomWord.answer.toLowerCase()) {
     fixedOverlay.classList.remove('hidden');
     fixedOverlay.append(modalWrapper);
     modalWrapper.append(modalContainer);
     youWin.textContent = 'You Win!'
-    youWin.classList.add('win__text')
-    modalContainer.append(youWin, resetButton)
+    youWin.classList.add('win__text');
+    finalWord.classList.add('final__result');
+    finalWord.textContent = `Correct Answer: ${finalAnswer}`
+    modalContainer.append(youWin, finalWord, resetButton);
+    document.body.style.overflow = 'hidden';
     keyBoardArray.forEach((button) => {
       button.style.pointerEvents = 'none';
     })
@@ -252,6 +259,8 @@ document.addEventListener('keydown', (e) => {
 
 //сброс с кнопки
 
+
+
 const clearGame = document.querySelector('.reset__button');
 clearGame.addEventListener('click', () => {
   isGameOver = false;
@@ -280,6 +289,7 @@ clearGame.addEventListener('click', () => {
 
   youLoose.textContent = '';
   youWin.textContent = '';
+  document.body.style.overflow = '';
 
   keyBoardArray.forEach((button) => {
     button.style.pointerEvents = '';
