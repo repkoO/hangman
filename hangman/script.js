@@ -298,7 +298,9 @@ clearGame.addEventListener('click', () => {
   });
 
   youLoose.textContent = '';
+  youLoose.remove();
   youWin.textContent = '';
+  youWin.remove();
   document.body.style.overflow = '';
 
   keyBoardArray.forEach((button) => {
@@ -308,6 +310,9 @@ clearGame.addEventListener('click', () => {
   fixedOverlay.classList.add('hidden');
 
   keyContainer.append(resetButton);
+
+  finalWord.textContent = '';
+  finalWord.remove();
 
   for (let i = 0; i < randomWord.answer.length; i++) {
     const createValue  = document.createElement('div');
