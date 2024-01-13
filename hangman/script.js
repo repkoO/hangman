@@ -278,8 +278,10 @@ clearGame.addEventListener('click', () => {
   questionField.textContent = '';
 
 
-  randomIndex = Math.floor(Math.random() * words.length)
-  randomWord = words[randomIndex];
+  do {
+    randomIndex = Math.floor(Math.random() * words.length);
+    randomWord = words[randomIndex];
+    } while (randomWord === lastRandomWord);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawGallows();
