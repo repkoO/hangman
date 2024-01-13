@@ -10,6 +10,8 @@ do {
   randomWord = words[randomIndex];
   } while (randomWord === lastRandomWord);
 
+lastRandomWord = randomWord;
+
 let livesRemaining = 6;
 let isGameOver = false;
 
@@ -286,6 +288,8 @@ clearGame.addEventListener('click', () => {
     randomIndex = Math.floor(Math.random() * words.length);
     randomWord = words[randomIndex];
     } while (randomWord === lastRandomWord);
+
+  lastRandomWord = randomWord;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawGallows();
