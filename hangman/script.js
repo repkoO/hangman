@@ -228,7 +228,6 @@ document.addEventListener('keydown', (e) => {
     const hiddenValue = document.querySelectorAll('.word__letter'); //доступ к дивам со скрытыми буквами
     if (e.key === el.textContent) {
       const currentWordValue = e.key;
-      console.log(currentWordValue);
        if (randomWord.answer.toLowerCase().includes(currentWordValue)) {
     hiddenValue.forEach((el, index) => {
       if (randomWord.answer.toLowerCase().charAt(index) === currentWordValue) {
