@@ -123,6 +123,13 @@ body {
   font-weight: bold;
 }
 
+.keyboard__rule {
+  font-family: 'Hangman';
+  font-size: 18px;
+  color: red;
+  opacity: 0.5;
+}
+
 /* MODAL */
 
 .fixed__overlay {

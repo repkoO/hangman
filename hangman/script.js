@@ -117,7 +117,11 @@ const resetButton = document.createElement('div');
 resetButton.classList.add('reset__button');
 resetButton.textContent = 'Reset Game';
 
-keyContainer.append(gameField, questionField, remainingTimes, keyboardWrapper, resetButton);
+const keyboardRule = document.createElement('div');
+keyboardRule.classList.add('keyboard__rule');
+keyboardRule.textContent = 'Only english keyboard';
+
+keyContainer.append(gameField, questionField, remainingTimes, keyboardWrapper, keyboardRule, resetButton);
 //JS game functions
 
 //создание поля ответа и вопроса
