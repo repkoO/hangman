@@ -77,14 +77,13 @@ body {
 .game__button {
   padding: 20px;
   cursor: pointer;
-  transition: ease 0.5s;
-  border-radius: 100px;
 }
 
 .game__button[data-active] {
   pointer-events: none;
-  color: grey;
-  transform: scale(1.0);
+  color: rgb(255, 0, 0);
+  transition: 1s ease;
+  opacity: 0.5;
 }
 
 .questions__wrapper p {
@@ -185,8 +184,9 @@ body {
 
 @media (hover: hover)  {
   .game__button:hover {
-    border: 1px solid;
-    transform: scale(1.2);
+    font-weight: bold;
+    color: blue;
+
   }
 
   .reset__button:hover {

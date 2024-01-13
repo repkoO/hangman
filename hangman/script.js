@@ -1,8 +1,15 @@
 import { words } from "./modules/words.js";
 import { keyboard } from "./modules/keyboard.js";
 
-let randomIndex = Math.floor(Math.random() * words.length)
-let randomWord = words[randomIndex];
+let lastRandomWord = null;
+let randomIndex;
+let randomWord;
+
+do {
+  randomIndex = Math.floor(Math.random() * words.length);
+  randomWord = words[randomIndex];
+  } while (randomWord === lastRandomWord);
+
 let livesRemaining = 6;
 let isGameOver = false;
 
@@ -224,7 +231,6 @@ document.addEventListener('keydown', (e) => {
     })
   const currentGuessedWord = Array.from(hiddenValue).map(el => el.textContent).join('');
   const finalAnswer = randomWord.answer.toLowerCase();
-  
   if (currentGuessedWord === randomWord.answer.toLowerCase()) {
     fixedOverlay.classList.remove('hidden');
     fixedOverlay.append(modalWrapper);
