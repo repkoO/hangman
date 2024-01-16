@@ -176,6 +176,7 @@ modalContainer.classList.add('modal__container');
 
 keyBoardArray.forEach((el) => {
   el.addEventListener('click', (e) => {
+    const finalAnswer = randomWord.answer.toLowerCase();
   const currentWordValue = e.target.innerText; //значение элемента при клике
   const hiddenValue = document.querySelectorAll('.word__letter'); //доступ к дивам со скрытыми буквами
   if (randomWord.answer.toLowerCase().includes(currentWordValue)) {
@@ -185,8 +186,6 @@ keyBoardArray.forEach((el) => {
       }
     })
   const currentGuessedWord = Array.from(hiddenValue).map(el => el.textContent).join('');
-  const finalAnswer = randomWord.answer.toLowerCase();
-
   if (currentGuessedWord === randomWord.answer.toLowerCase()) {
     fixedOverlay.classList.remove('hidden');
     fixedOverlay.append(modalWrapper);
@@ -210,7 +209,9 @@ keyBoardArray.forEach((el) => {
       modalWrapper.append(modalContainer);
       youLoose.textContent = 'You Loose!'
       youLoose.classList.add('loose__text');
-    modalContainer.append(youLoose, resetButton)
+      finalWord.classList.add('final__result');
+      finalWord.textContent = `Correct Answer: ${finalAnswer}`
+      modalContainer.append(youLoose, finalWord, resetButton);
       keyBoardArray.forEach((button) => {
         button.style.pointerEvents = 'none';
       })
@@ -224,6 +225,7 @@ keyBoardArray.forEach((el) => {
 
 document.addEventListener('keydown', (e) => {
   if (isGameOver) return;
+  const finalAnswer = randomWord.answer.toLowerCase();
   keyBoardArray.forEach(el => {
     const hiddenValue = document.querySelectorAll('.word__letter'); //доступ к дивам со скрытыми буквами
     if (e.key === el.textContent) {
@@ -235,7 +237,6 @@ document.addEventListener('keydown', (e) => {
       }
     })
   const currentGuessedWord = Array.from(hiddenValue).map(el => el.textContent).join('');
-  const finalAnswer = randomWord.answer.toLowerCase();
   if (currentGuessedWord === randomWord.answer.toLowerCase()) {
     fixedOverlay.classList.remove('hidden');
     fixedOverlay.append(modalWrapper);
@@ -260,7 +261,9 @@ document.addEventListener('keydown', (e) => {
       modalWrapper.append(modalContainer);
       youLoose.textContent = 'You Loose!'
       youLoose.classList.add('loose__text')
-      modalContainer.append(youLoose, resetButton)
+      finalWord.classList.add('final__result');
+      finalWord.textContent = `Correct Answer: ${finalAnswer}`
+      modalContainer.append(youLoose, finalWord, resetButton);
       keyBoardArray.forEach((button) => {
         button.style.pointerEvents = 'none';
       })
@@ -281,6 +284,7 @@ clearGame.addEventListener('click', () => {
   isGameOver = false;
   gameField.textContent = '';
   questionField.textContent = '';
+  finalWord.textContent = '';
 
 
   do {
