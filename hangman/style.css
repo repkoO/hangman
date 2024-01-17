@@ -1,0 +1,260 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+   font-size: inherit;
+   font-weight: 400
+}
+
+@font-face {
+  font-family: 'Hangman';
+  src: url('./assets/DK_Hangman_s_Delight.otf');
+}
+
+body {
+  background-image: url('./assets/list_v_kletku.jpg');
+  background-size: cover;
+  height: 100%;
+  max-width: 1440px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 100px 100px 0 100px;
+}
+
+.game__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.img__gallow {
+  transform: scale(-1, 1);
+  width: 300px;
+}
+
+.game__container h1 {
+  font-family: 'Hangman';
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.control__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1.5em;
+}
+
+.game__wrapper {
+  display: flex;
+  gap: 40px;
+  font-size: 50px;
+}
+
+.keyaboard__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: 'Hangman';
+  font-size: 30px;
+  margin: 30px;
+}
+
+.game__button {
+  padding: 20px;
+  cursor: pointer;
+}
+
+.game__button[data-active] {
+  pointer-events: none;
+  color: rgb(255, 0, 0);
+  transition: 1s ease;
+  opacity: 0.5;
+}
+
+.questions__wrapper p {
+  font-family: 'Hangman';
+  font-weight: 700;
+  font-size: 26px;
+}
+
+.remaining__wrapper {
+  font-family: 'Hangman';
+  font-weight: 900;
+  color: red;
+  font-size: 24px;
+}
+
+.word__letter {
+  font-family: 'Hangman';
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.reset__button {
+  border: 1px solid black;
+  font-family: 'Hangman';
+  font-size: 24px;
+  font-weight: 900;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: 0.8s ease;
+}
+
+.loose__text,
+.win__text {
+  font-family: 'Hangman';
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.keyboard__rule {
+  font-family: 'Hangman';
+  font-size: 18px;
+  color: red;
+  opacity: 0.5;
+}
+
+/* MODAL */
+
+.fixed__overlay {
+  position: fixed;
+  overflow: auto;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(64, 63, 61, 0.80);
+  z-index: 10;
+  animation: modalOpen 0.5s;
+}
+
+.modal__wrapper {
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  position: fixed;
+  left: 0; top: 0; right: 0; bottom: 0;
+  align-items: center;
+  margin: 0 auto;
+  overflow: auto; /* Enable scroll if needed */
+  width: 806px;
+  animation: modalOpen 0.2s;
+}
+
+.modal__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 50px;
+  gap: 20px;
+  border-radius: 110px;
+  border: 1px solid black;
+}
+
+.hidden {
+  display: none;
+}
+
+.final__result {
+  font-family: 'Hangman';
+  font-size: 24px;
+  color: red;
+  font-weight: bold;
+}
+
+@keyframes modalOpen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (hover: hover)  {
+  .game__button:hover {
+    font-weight: bold;
+    color: blue;
+
+  }
+
+  .reset__button:hover {
+    border: 1px solid red;
+    color: red;
+    transform: scale(1.2);
+  }
+}
+
+@media screen and (max-width: 1015px) {
+  .container {
+    flex-direction: column;
+    margin: 30px 100px 0 100px;
+  }
+
+  .game__container {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .control__container {
+    row-gap: 1em;
+  }
+
+  .modal__wrapper {
+    max-width: 100%;
+  }
+
+  .game__wrapper {
+    gap: 15px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+
+  .container {
+    margin: 20px 15px 0 15px;
+  }
+
+  .control__container {
+    margin-bottom: 15px;
+  }
+
+  .word__letter {
+    font-size: 24px;
+  }
+
+  .questions__wrapper p {
+    font-size: 16px;
+  }
+
+  .remaining__wrapper {
+    font-size: 16px;
+  }
+
+  .keyaboard__wrapper {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .reset__button {
+    font-size: 16px;
+  }
+}
